@@ -1,0 +1,40 @@
+```{r}
+library(dplyr) 
+
+library(tidyverse) 
+
+library(infer) 
+
+library(knitr) 
+
+library(broom) 
+
+```
+```{r}
+
+price<-read.csv("TSLA30.csv")
+head(price)
+```
+```{r}
+lm.fit<-lm(formula=positiveIncrease~Close,data=price)
+lm.fit
+glance(lm.fit)
+```
+```{r}
+
+price%>%
+  ggplot(aes(positiveIncrease,Close))+
+  geom_point(color="green")+
+  geom_smooth(method="lm",se=FALSE,color="red")+
+  labs(title = "new confirmed cases of covid-19 vs stock price",
+       x= "new confirmed cases of covid-19",
+       y= "stock price",
+       caption = "P-value= 0.6397524")
+
+  
+```
+```{r}
+y<- data.matrix(price)
+heatmap(y, main="stock prices",trace="none",margins=c(10,12))
+```
+
